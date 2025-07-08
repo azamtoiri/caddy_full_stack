@@ -1,0 +1,53 @@
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: ["uv", "run", "manage.py", "runserver", "0.0.0.0:8000"]
+    container_name: backend
+    ports:
+      - "8939:8000"
+    volumes:
+      - static:/app/staticfiles
+    restart: unless-stopped
+
+    networks:
+      - caddy_network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - caddy_network
+
+  caddy:
+    image: caddy:latest
+    container_name: dev-caddy
+    ports:
+      - "8080:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+      - static:/app/staticfiles
+
+    restart: unless-stopped
+    networks:
+      - caddy_network
+
+
+volumes:
+  static:
+  caddy_data:
+  caddy_config:
+
+networks:
+  caddy_network:
