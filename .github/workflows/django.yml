@@ -28,9 +28,9 @@ jobs:
 
     - name: Install Dependencies
       run: |
-        uv sync --locked --all-extras --dev
+        cd backend && uv sync --locked --all-extras --dev
     
     - name: Run Tests
       run: |
-        uv run manage.py test
+        cd backend && uv run manage.py test
     
