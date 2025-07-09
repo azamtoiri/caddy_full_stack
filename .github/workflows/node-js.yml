@@ -25,10 +25,10 @@ jobs:
         cache: 'yarn'  # Изменено с 'npm' на 'yarn'
         
     - name: Install dependencies
-      run: yarn install --frozen-lockfile --prefer-offline --non-interactive
+      run: cd frontend && yarn install --frozen-lockfile --prefer-offline --non-interactive
       
     - name: Build
-      run: yarn build
+      run: cd frontend && yarn build
       
     - name: Run tests
-      run: yarn test --run
+      run: cd frontend && yarn test --run
