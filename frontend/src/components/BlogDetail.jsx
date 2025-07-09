@@ -12,7 +12,7 @@ const BlogDetail = () => {
     if (window.confirm('Are you sure you want to delete this blog post?')) {
       try {
         await deleteBlog(id)
-        navigate('/blog')
+        navigate('/')
       } catch (error) {
         console.error('Failed to delete blog:', error)
       }

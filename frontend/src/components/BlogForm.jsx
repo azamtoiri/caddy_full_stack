@@ -142,7 +142,7 @@ const BlogForm = () => {
         <div className="flex gap-4 justify-end">
           <button
             type="button"
-            onClick={() => navigate('/blog')}
+            onClick={() => navigate('/')}
             className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
           >
             Cancel
