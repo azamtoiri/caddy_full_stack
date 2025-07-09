@@ -15,3 +15,4 @@ class Blog(models.Model):
         verbose_name = 'Blog'
         verbose_name_plural = 'Blogs'
         ordering = ['-created_at']  # Newest first
+        
