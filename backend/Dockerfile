@@ -15,9 +15,11 @@ ENV PATH="/root/.local/bin/:$PATH"
 
 WORKDIR /app
 
-COPY . .
+COPY ./pyproject.toml ./uv.lock .
 
 RUN uv sync --locked
+
+COPY . .
 
 RUN uv run manage.py collectstatic --noinput
 RUN uv run manage.py migrate

@@ -3,10 +3,11 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    command: ["uv", "run", "manage.py", "runserver", "0.0.0.0:8000"]
+    image: simple-django-app:latest
+    command: uv run gunicorn api.wsgi:application --bind 0.0.0.0:8000 --workers 4
     container_name: backend
-    ports:
-      - "8939:8000"
+    environment:
+      - DEBUG=${DEBUG:-1}
     volumes:
       - static:/app/staticfiles
     restart: unless-stopped
@@ -18,9 +19,8 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    image: simple-frontend-app:latest
     container_name: frontend
-    ports:
-      - "3000:80"
     depends_on:
       - backend
     restart: unless-stopped
@@ -37,7 +37,7 @@ services:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
       - caddy_config:/config
-      - static:/app/staticfiles
+      - static:/static
 
     restart: unless-stopped
     networks:
