@@ -84,13 +84,15 @@ const BlogForm = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      <div className={`flex mb-6 ${isEditing ? 'justify-start' : 'justify-center'}`}>
+        <h1 className="text-3xl font-bold">
+          {isEditing ? 'Edit Blog' : 'Create New Blog'}
+        </h1>
+      </div>
       <div className="flex justify-between items-center mb-6">
         <Link to="/" className="text-blue-600 hover:text-blue-800">
           ← Back to Blogs
         </Link>
-        <h1 className="text-3xl font-bold">
-          {isEditing ? 'Edit Blog Post' : 'Create New Blog Post'}
-        </h1>
       </div>
 
       <form onSubmit={handleSubmit} className="max-w-3xl mx-auto">

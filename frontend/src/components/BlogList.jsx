@@ -3,7 +3,7 @@ import { useBlogs } from '../hooks/useBlog'
 import { formatDate } from '../utils/formatDate'
 
 const BlogList = () => {
-  const { blogs, loading, error, refetch } = useBlogs()
+  const { blogs, loading, error } = useBlogs()
 
   if (loading) return <div className="text-center text-gray-500">Loading blogs...</div>
   if (error) return <div className="text-center text-red-500">Error: {error}</div>
@@ -13,18 +13,6 @@ const BlogList = () => {
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">Blog Posts</h1>
         <div className="flex gap-4">
-          <button 
-            onClick={refetch} 
-            className="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
-          >
-            Refresh
-          </button>
-          <Link 
-            to="/blog/create" 
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-          >
-            Create New Post
-          </Link>
         </div>
       </div>
 
