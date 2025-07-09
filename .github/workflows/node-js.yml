@@ -22,10 +22,10 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
-        cache: 'yarn'  # Изменено с 'npm' на 'yarn'
+        cache: 'yarn' 
         
     - name: Install dependencies
-      run: cd frontend && yarn install --frozen-lockfile --prefer-offline --non-interactive
+      run: cd frontend && yarn install --non-interactive
       
     - name: Build
       run: cd frontend && yarn build
