@@ -1,0 +1,34 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x, 22.x]
+        # Node.js 23.x и 24.x еще не выпущены (на январь 2025)
+        
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'yarn'  # Изменено с 'npm' на 'yarn'
+        
+    - name: Install dependencies
+      run: yarn install --frozen-lockfile --prefer-offline --non-interactive
+      
+    - name: Build
+      run: yarn build
+      
+    - name: Run tests
+      run: yarn test --run

@@ -3,11 +3,11 @@ FROM node:24-alpine AS builder
 
 WORKDIR /app
 
-COPY ./package.json ./
-RUN yarn install
+COPY ./package.json ./yarn.lock ./
+RUN yarn install --frozen-lockfile --non-interactive
 
 COPY . .
-RUN npm run build
+RUN yarn run build
 
 # 2. Статичный сервер (nginx или caddy)
 FROM caddy:latest
